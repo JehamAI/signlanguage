@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from difflib import SequenceMatcher
+import re
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
@@ -38,6 +39,11 @@ class SignDictionary:
         self.entries = entries
         self._vectors = vectors
         self._exact = {entry.normalized_gloss: entry for entry in entries}
+        for entry in entries:
+            for alias in re.split(r"\s*/\s*", entry.gloss):
+                normalized_alias = normalize_arabic(alias.strip())
+                if normalized_alias:
+                    self._exact.setdefault(normalized_alias, entry)
 
     @classmethod
     def scan(cls, *roots: Path) -> "SignDictionary":

@@ -20,7 +20,10 @@ def _text_card(text: str, size: tuple[int, int]) -> np.ndarray:
     return frame
 
 
-def compose(matches: list[Match], output: Path, fps: int = 24, seconds_per_item: float = 1.2) -> Path:
+def compose(
+    matches: list[Match], output: Path, fps: int = 24,
+    seconds_per_item: float = 1.2, transition_seconds: float = 0.16,
+) -> Path:
     output.parent.mkdir(parents=True, exist_ok=True)
     if output.suffix.lower() != ".mp4":
         output = output.with_suffix(".mp4")
@@ -30,25 +33,34 @@ def compose(matches: list[Match], output: Path, fps: int = 24, seconds_per_item:
     if not writer.isOpened():
         raise RuntimeError("Could not initialize the video encoder")
     repeat = max(int(fps * seconds_per_item), 1)
+    transition_frames = max(int(fps * transition_seconds), 1)
     for match in matches:
         path = Path(match.media_path) if match.media_path else None
+        last_frame = None
         if path and path.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp"}:
             image = read_image(path)
             frame = cv2.resize(image, size) if image is not None else _text_card(match.query, size)
             for _ in range(repeat):
                 writer.write(frame)
+            last_frame = frame
         elif path and path.suffix.lower() in {".mp4", ".avi", ".mov", ".mkv"}:
             capture = cv2.VideoCapture(str(path))
             while True:
                 ok, frame = capture.read()
                 if not ok:
                     break
-                writer.write(cv2.resize(frame, size))
+                last_frame = cv2.resize(frame, size)
+                writer.write(last_frame)
             capture.release()
         else:
             frame = _text_card(match.query, size)
             for _ in range(repeat):
                 writer.write(frame)
+            last_frame = frame
+        # A short held frame makes boundaries between signs and spelled letters visible.
+        if last_frame is not None:
+            for _ in range(transition_frames):
+                writer.write(last_frame)
     writer.release()
     if not intermediate.exists() or intermediate.stat().st_size == 0:
         raise RuntimeError("Video construction failed")

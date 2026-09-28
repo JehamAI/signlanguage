@@ -94,9 +94,18 @@ class ConversationPipeline:
         retrieved = self.rag.retrieve_karsl100(rag_query, recognized_glosses=recognized or glosses, k=4)
         context = "\n\n".join(f"[{chunk.source}] {chunk.text}" for chunk in retrieved)
         answer = self.llm.grounded_answer(question, context)
+        if retrieved:
+            recommended = next(
+                (line for line in retrieved[0].text.splitlines() if line.startswith("الإجابة المختصرة الموصى بها:")),
+                "",
+            )
+            if recommended:
+                answer = recommended.split(":", 1)[1].strip()
         signing = self.llm.simplify_for_signing(answer, self._sign_candidates(answer))
-        answer_glosses = signing.sign_glosses[:6]
-        result = self.glosses_to_sign(answer_glosses, compose_video, source_text=answer)
+        answer_glosses = signing.sign_glosses
+        resolved = [output_vocab.resolve(item) or item.strip() for item in answer_glosses if item.strip()]
+        sign_sentence = " ".join(resolved)
+        result = self._matches_to_result(answer, sign_sentence, resolved, compose_video)
         result.update(
             {
                 "recognized_glosses": glosses,
@@ -106,6 +115,7 @@ class ConversationPipeline:
                 ],
                 "answer": answer,
                 "answer_glosses": answer_glosses,
+                "sign_language_sentence": sign_sentence,
                 "answer_mode": "natural_rag_answer_then_karsl502_translation",
             }
         )

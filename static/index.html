@@ -3,37 +3,124 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>محادثة لغة الإشارة العربية</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <meta name="theme-color" content="#092f35">
+  <title>وصال — مساعد لغة الإشارة العربية</title>
+  <link rel="stylesheet" href="/static/style.css?v=15">
 </head>
 <body>
-  <main>
-    <header><span class="tag">نموذج بحثي</span><h1>محادثة لغة الإشارة العربية</h1><p>حوّل الإجابة العربية إلى تسلسل إشارات مطابق لقاموس محلي.</p></header>
-    <section>
-      <label for="text">النص العربي</label>
-      <textarea id="text" rows="5" placeholder="اكتب جملة عربية قصيرة"></textarea>
-      <button id="translate">تحويل إلى إشارات</button>
-      <p id="status"></p>
-      <div id="result"></div>
-    </section>
-    <section class="sign-flow">
-      <h2>محادثة من الإشارة إلى الإجابة</h2>
-      <p>حمّل مقطعاً منفصلاً لكل كلمة إشارية وبالترتيب. نموذج KArSL-100 الحالي يتعرف على 100 إشارة عربية.</p>
-      <details>
-        <summary>عرض الكلمات التي يستطيع النموذج التعرّف عليها</summary>
-        <p id="recognition-vocabulary" class="vocabulary">جارٍ تحميل قائمة الكلمات…</p>
-      </details>
-      <label for="sign-files">مقاطع الكلمات الإشارية</label>
-      <input id="sign-files" type="file" accept="video/*" multiple>
-      <div id="selected-sign-files" class="selected-files">لم يتم اختيار مقاطع بعد.</div>
-      <button id="clear-sign-files" type="button" class="secondary">مسح المقاطع المختارة</button>
-      <label class="checkbox"><input id="continuous-video" type="checkbox" checked> فيديو جملة واحد مع وقفة واضحة بين كل إشارتين</label>
-      <label class="checkbox"><input id="allow-low" type="checkbox"> متابعة النتائج منخفضة الثقة لأغراض العرض فقط</label>
-      <button id="run-conversation">تشغيل المسار الكامل</button>
-      <p id="conversation-status"></p>
-      <div id="conversation-result"></div>
-    </section>
-  </main>
-  <script src="/static/app.js?v=9"></script>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="وصال">
+        <span class="brand-mark" aria-hidden="true">و</span>
+        <span><b>وصال</b><small>مساعد لغة الإشارة العربية</small></span>
+      </a>
+      <div class="top-actions">
+        <span class="system-pill"><i></i> النظام جاهز</span>
+        <button id="trace-toggle" class="ghost-button" type="button" aria-expanded="false" aria-controls="trace-panel">
+          تتبّع المعالجة
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-copy">
+        <span class="eyebrow">تواصل بلا حواجز</span>
+        <h1>محادثة عربية بلغة الإشارة،<br><em>من الفيديو إلى الإجابة.</em></h1>
+        <p>ارفع فيديو بلغة الإشارة. يتعرّف المساعد على السؤال، يبحث في المعرفة، ثم يجيب بفيديو إشاري.</p>
+      </section>
+
+      <section class="workspace">
+        <div class="video-grid">
+          <article class="video-card user-video-card">
+            <div class="card-heading">
+              <span><i class="live-dot"></i> فيديو المستخدم</span>
+              <span id="input-video-state" class="muted">بانتظار فيديو</span>
+            </div>
+            <div id="input-stage" class="video-stage empty-stage">
+              <video id="input-video" controls muted playsinline></video>
+              <label id="upload-placeholder" class="placeholder clickable-upload" for="sign-files" tabindex="0">
+                <div class="upload-icon" aria-hidden="true">↑</div>
+                <b>أضف فيديو الإشارة</b>
+                <span>اضغط هنا أو اسحب الملف · MP4 أو MOV أو WebM</span>
+              </label>
+            </div>
+          </article>
+
+          <article class="video-card ai-video-card">
+            <div class="card-heading">
+              <span><i class="ai-dot"></i> إجابة المساعد بالإشارة</span>
+              <span id="output-video-state" class="muted">ستظهر هنا</span>
+            </div>
+            <div id="output-stage" class="video-stage empty-stage">
+              <video id="conversation-video" controls autoplay muted playsinline></video>
+              <div id="output-placeholder" class="placeholder ai-placeholder">
+                <div class="spark" aria-hidden="true">✦</div>
+                <b>الإجابة المرئية</b>
+                <span>سيُنشأ الفيديو بعد فهم السؤال</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <aside class="chat-card">
+          <div class="chat-heading">
+            <div><span class="avatar">و</span><span><b>مساعد وصال</b><small>متصل الآن</small></span></div>
+            <button id="clear-chat" class="icon-button" title="محادثة جديدة" type="button">↻</button>
+          </div>
+          <div id="chat-thread" class="chat-thread" aria-live="polite">
+            <div class="message assistant-message">
+              <span class="message-label">وصال</span>
+              <p>مرحباً، ارفع فيديو لسؤالك بلغة الإشارة وسأجيبك بالعربية والإشارة.</p>
+            </div>
+          </div>
+          <div class="composer">
+            <div id="selected-sign-files" class="selected-files">لم يتم اختيار فيديو بعد</div>
+            <div class="composer-row">
+              <label for="sign-files" class="upload-button"><span>＋</span> اختيار فيديو</label>
+              <input id="sign-files" type="file" accept="video/*" multiple hidden>
+              <button id="run-conversation" class="primary-button" type="button" disabled>
+                <span>إرسال للمساعد</span><span aria-hidden="true">←</span>
+              </button>
+            </div>
+            <details class="options">
+              <summary>خيارات العرض المتقدمة</summary>
+              <label><input id="continuous-video" type="checkbox" checked> فيديو جملة واحد مع وقفات بين الإشارات</label>
+              <label><input id="allow-low" type="checkbox"> متابعة النتيجة منخفضة الثقة للعرض</label>
+              <button id="clear-sign-files" class="text-button" type="button">إزالة الفيديو المحدد</button>
+            </details>
+            <p id="conversation-status" class="status-line"></p>
+          </div>
+        </aside>
+      </section>
+
+      <section id="trace-panel" class="trace-panel" hidden>
+        <div class="trace-header">
+          <div><span class="eyebrow">وضع العرض التقني</span><h2>تتبّع مسار الذكاء الاصطناعي</h2></div>
+          <button id="trace-close" class="icon-button" type="button" aria-label="إغلاق">×</button>
+        </div>
+        <div id="conversation-result" class="trace-content">
+          <div class="trace-empty">شغّل محادثة لعرض التعرف وRAG وتحويل الإشارات ومطابقة القاموس هنا.</div>
+        </div>
+        <details class="vocabulary-details">
+          <summary>مفردات نموذج التعرف على فيديو المستخدم</summary>
+          <p id="recognition-vocabulary" class="vocabulary">جارٍ تحميل قائمة الكلمات…</p>
+        </details>
+      </section>
+
+      <section class="text-demo">
+        <details>
+          <summary>أداة إضافية: تحويل نص عربي مباشرة إلى فيديو إشاري</summary>
+          <div class="text-demo-body">
+            <textarea id="text" rows="3" placeholder="اكتب جملة عربية قصيرة"></textarea>
+            <button id="translate" class="secondary-button" type="button">تحويل النص إلى إشارات</button>
+            <p id="status" class="status-line"></p>
+            <div id="result"></div>
+          </div>
+        </details>
+      </section>
+    </main>
+    <footer><span>نموذج عرض بحثي</span><span>KArSL-502 · RAG · Saudi ArSL gloss planning</span></footer>
+  </div>
+  <script src="/static/app.js?v=15"></script>
 </body>
 </html>
