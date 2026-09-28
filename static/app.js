@@ -43,10 +43,12 @@ const selectedSignFiles = [];
 
 function renderSelectedSignFiles() {
   const container = document.querySelector('#selected-sign-files');
+  const continuousToggle = document.querySelector('#continuous-video');
   if (!selectedSignFiles.length) {
     container.textContent = 'لم يتم اختيار مقاطع بعد.';
     return;
   }
+  if (selectedSignFiles.length > 1) continuousToggle.checked = false;
   container.innerHTML = selectedSignFiles
     .map((file, index) => `<div>${index + 1}. ${file.name}</div>`)
     .join('');
@@ -67,6 +69,7 @@ signFileInput.addEventListener('change', () => {
 document.querySelector('#clear-sign-files').addEventListener('click', () => {
   selectedSignFiles.length = 0;
   signFileInput.value = '';
+  document.querySelector('#continuous-video').checked = true;
   renderSelectedSignFiles();
 });
 
