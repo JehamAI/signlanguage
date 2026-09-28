@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from difflib import SequenceMatcher
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
@@ -82,6 +83,9 @@ class SignDictionary:
         if score < required:
             return Match(query, None, score, None, fallback="fingerspell")
         entry = self.entries[index]
+        lexical_score = SequenceMatcher(None, normalized, entry.normalized_gloss).ratio()
+        if lexical_score < Settings.load().lexical_similarity_threshold:
+            return Match(query, None, score, None, fallback="fingerspell")
         return Match(query, entry.gloss, score, entry.media_path)
 
     def save_index(self, directory: Path) -> None:
@@ -98,3 +102,53 @@ class SignDictionary:
     def load_index(cls, directory: Path) -> "SignDictionary":
         raw = json.loads((directory / "dictionary.json").read_text(encoding="utf-8"))
         return cls([SignEntry(**item) for item in raw], np.load(directory / "dictionary_vectors.npy"))
+
+
+class AlphabetDictionary:
+    """Exact character lookup kept separate from semantic word matching."""
+
+    def __init__(self, entries: dict[str, SignEntry]):
+        self.entries = entries
+
+    @classmethod
+    def scan(cls, root: Path) -> "AlphabetDictionary":
+        entries: dict[str, SignEntry] = {}
+        if not root.exists():
+            return cls(entries)
+        for path in sorted(root.rglob("*")):
+            if not path.is_file() or path.suffix.lower() not in MEDIA_EXTENSIONS:
+                continue
+            label_file = path.parent / "label.txt"
+            if not label_file.exists():
+                continue
+            character = label_file.read_text(encoding="utf-8").strip()
+            if character and character not in entries:
+                entries[character] = SignEntry(character, character, str(path.resolve()), "video", "alphabet")
+        return cls(entries)
+
+    def spell(self, text: str) -> list[Match]:
+        ignored = set(" \t\r\nـًٌٍَُِّْ،؛؟,.!?:;()[]{}\"'")
+        result: list[Match] = []
+        index = 0
+        while index < len(text):
+            character = text[index]
+            if character in ignored:
+                index += 1
+                continue
+            # Prefer KArSL's dedicated common combinations (لا and ال).
+            token = text[index:index + 2]
+            entry = self.entries.get(token)
+            if entry:
+                character = token
+                index += 2
+            else:
+                entry = self.entries.get(character)
+                index += 1
+            # KArSL has the presentation form ئـ; ordinary ئ uses the same sign.
+            if entry is None and character == "ئ":
+                entry = self.entries.get("ئـ")
+            if entry:
+                result.append(Match(character, entry.gloss, 1.0, entry.media_path, fallback="fingerspell"))
+            else:
+                result.append(Match(character, None, 0.0, None, fallback="unmapped_character"))
+        return result

@@ -16,7 +16,7 @@ class Chunk:
 
 
 class LocalRAG:
-    KARSL_KNOWLEDGE_MARK = "karsl100_closed_qa"
+    KARSL_KNOWLEDGE_MARK = "karsl502_service_knowledge"
 
     def __init__(self, root: Path):
         self.chunks = self._load(root)
@@ -51,10 +51,16 @@ class LocalRAG:
             tokens = self._token_sets[index]
             chunk = self.chunks[index]
             chunk_norm = normalize_arabic(chunk.text)
+            trigger_line = next(
+                (line for line in chunk.text.splitlines() if line.strip().startswith(("الإشارات:", "كلمات مفتاحية:"))), ""
+            )
+            trigger_norm = normalize_arabic(trigger_line)
             overlap = len(query_tokens & tokens) / max(len(query_tokens), 1)
             phrase_hit = 1.0 if query_norm and query_norm in chunk_norm else 0.0
-            gloss_hit = sum(2.0 for gloss in recognized_norm if gloss and gloss in chunk_norm)
-            lexical_values.append(overlap + phrase_hit + gloss_hit)
+            # Match recognized signs against the rule trigger, never its answer text.
+            trigger_hits = sum(3.0 for gloss in recognized_norm if gloss and gloss in trigger_norm)
+            all_triggers = 6.0 if recognized_norm and all(g in trigger_norm for g in recognized_norm) else 0.0
+            lexical_values.append(overlap + phrase_hit + trigger_hits + all_triggers)
         lexical = np.asarray(lexical_values, dtype=np.float32)
         return semantic + (2.0 * lexical)
 

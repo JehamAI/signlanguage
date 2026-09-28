@@ -46,6 +46,7 @@ class LLMService:
     def grounded_answer(self, question: str, context: str) -> str:
         data = self._json(
             "Answer in concise Modern Standard Arabic using only the supplied context. "
+            "Use at most two short sentences and about 30 Arabic words. Prioritize the direct, actionable answer. "
             "If the context is insufficient, say that clearly. Return JSON with key answer.",
             json.dumps({"question": question, "context": context}, ensure_ascii=False),
         )
@@ -55,8 +56,8 @@ class LLMService:
         self, question: str, context: str, allowed_glosses: list[str], recognized_glosses: list[str]
     ) -> tuple[str, list[str]]:
         data = self._json(
-            "You answer for a closed Arabic sign-language vocabulary (KArSL-100). "
-            "The context contains rules with a line «الجواب المعتمد (KArSL-100 فقط):» — copy that answer "
+            "You answer for a closed Arabic sign-language output vocabulary (KArSL-502). "
+            "The context contains rules with a line «الجواب المعتمد:» — copy that answer "
             "when the recognized glosses or question match the same rule. "
             "Use ONLY the supplied context and ONLY glosses from allowed_glosses. "
             "Never say that context is insufficient. "
@@ -78,11 +79,17 @@ class LLMService:
 
     def simplify_for_signing(self, sentence: str, vocabulary: list[str]) -> StructuredArabic:
         data = self._json(
-            "Convert the Arabic sentence into a short ordered sequence of sign glosses. Preserve meaning; "
-            "use a supplied vocabulary item only when it has the same meaning. Never replace a missing concept "
-            "with an unrelated available word. Keep a missing word unchanged so the system can flag it for "
-            "fingerspelling or human review. Omit only function words that do not change meaning. "
-            "Return JSON with sentence and sign_glosses (an array of strings).",
+            "Act as an Arabic Sign Language gloss planner, not a word-for-word Arabic translator. "
+            "Reduce the sentence to a short, natural concept sequence for signing. Remove Arabic articles, "
+            "pronouns, copulas, case/verb inflections, conjunctions and other grammatical filler unless they "
+            "carry essential meaning. Remove concepts already implied by another selected sign. Preserve content "
+            "concepts and preserve negation, question intent, important time, quantity and direction. "
+            "Output 1-6 glosses only; this is a hard maximum. Select the closest semantically correct item from "
+            "available_vocabulary and copy its spelling EXACTLY; map inflected forms to their dictionary lemma. "
+            "Similarity is not enough: never choose a related-looking item that changes the meaning. If an "
+            "essential proper name or content concept has no safe equivalent, keep at most ONE concise Arabic "
+            "lemma unchanged for fingerspelling. Do not keep missing function words for fingerspelling. "
+            "Return JSON with sentence (a readable summary of the planned concepts) and sign_glosses (ordered array).",
             json.dumps({"sentence": sentence, "available_vocabulary": vocabulary}, ensure_ascii=False),
         )
         return StructuredArabic(str(data.get("sentence", sentence)), [str(x) for x in data["sign_glosses"]])

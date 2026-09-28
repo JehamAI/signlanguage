@@ -18,6 +18,10 @@ data/KArSL100_landmarks/
 data/KArSL100_raw/
 data/KArSL100_dictionary/
 data/KArSL100_dictionary_frames/
+data/KArSL502_dictionary/
+data/KArSL502_dictionary_frames/
+data/KArSL_alphabet/
+data/KArSL_alphabet_frames/
 data/KArSL502_parquet/
 **/.cache/
 
@@ -35,4 +39,3 @@ references/karsl_word_recognition/
 *.webm
 *.zip
 *.7z
-

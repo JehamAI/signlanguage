@@ -64,3 +64,18 @@ class KArSL100Vocabulary:
 @lru_cache(maxsize=1)
 def karsl100_vocabulary() -> KArSL100Vocabulary:
     return KArSL100Vocabulary.load()
+
+
+@lru_cache(maxsize=1)
+def karsl502_vocabulary() -> KArSL100Vocabulary:
+    """Semantic output vocabulary; alphabet IDs 32-70 are reserved for fallback spelling."""
+    from openpyxl import load_workbook
+
+    workbook = ROOT / "references" / "karsl_word_recognition" / "KARSL-502_Labels.xlsx"
+    sheet = load_workbook(workbook, read_only=True, data_only=True).active
+    labels = tuple(
+        str(row[1]).strip()
+        for row in sheet.iter_rows(min_row=2, values_only=True)
+        if row[0] is not None and row[1] is not None and not 32 <= int(row[0]) <= 70
+    )
+    return KArSL100Vocabulary(labels=labels, _by_norm={normalize_arabic(x): x for x in labels})

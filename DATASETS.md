@@ -45,3 +45,26 @@ reject downloads because of its quota; the mirror download is resumable.
 - Architecture: T5-small encoder over normalized MediaPipe hand landmarks.
 - Vocabulary: 10 isolated Arabic word signs.
 - Important limitation: the model card contains no verified accuracy or F1 values and the model tiles a single frame rather than learning a complete temporal sequence.
+# KArSL alphabet playback fallback
+
+- Local path: `data/KArSL_alphabet/0032` through `0070`.
+- Contents: one browser-compatible H.264 clip for each of the 39 alphabet and
+  orthographic classes in the official KArSL label workbook, including the 28
+  base letters, hamza forms, taa marbuta, alif maqsura, `لا`, and `ال`.
+- Source media: the KArSL-502 Kaggle mirror; labels come from the KArSL workbook
+  stored under `references/karsl_word_recognition`.
+- Usage: playback-only fingerspelling when no exact or sufficiently similar
+  word exists in the word dictionary. These clips are deliberately excluded
+  from semantic nearest-neighbor word matching.
+- Licensing: treat as research/demo data. Confirm redistribution/commercial-use
+  permission with the KArSL owners before a client production deployment.
+
+# KArSL-502 output dictionary
+
+- Local path: `data/KArSL502_dictionary/0001` through `0502`.
+- Contains one representative browser-compatible H.264 video for every KArSL
+  class. The application uses 463 non-alphabet classes for semantic output and
+  keeps the 39 alphabet classes isolated for safe fingerspelling fallback.
+- This expands output playback only. The current input recognizer remains the
+  separately evaluated 100-class model (IDs 71-170).
+- Rebuild/resume with `scripts/fetch_karsl502_dictionary.py`.

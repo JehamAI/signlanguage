@@ -11,7 +11,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from .config import ROOT, Settings
-from .dictionary import SignDictionary
+from .dictionary import AlphabetDictionary, SignDictionary
 from .llm import LLMService
 from .pipeline import ConversationPipeline
 from .rag import LocalRAG
@@ -36,9 +36,13 @@ class GlossRequest(BaseModel):
 def pipeline() -> ConversationPipeline:
     settings = Settings.load()
     dictionary = SignDictionary.scan(
-        settings.dictionary_root, settings.video_root, settings.karsl_dictionary_root
+        settings.dictionary_root, settings.video_root, settings.karsl502_dictionary_root,
+        settings.karsl_dictionary_root
     )
-    return ConversationPipeline(dictionary, LocalRAG(settings.knowledge_root), LLMService(settings), settings.output_root)
+    alphabet = AlphabetDictionary.scan(settings.karsl_alphabet_root)
+    return ConversationPipeline(
+        dictionary, LocalRAG(settings.knowledge_root), LLMService(settings), settings.output_root, alphabet
+    )
 
 
 app = FastAPI(title="Arabic Sign Conversation", version="0.1.0")
@@ -68,6 +72,8 @@ def health():
             list((ROOT / "references" / "karsl_word_recognition").glob("*3_signers*Accuracy_*.h5"))
         ),
         "karsl100_vocabulary_size": 100,
+        "karsl502_output_vocabulary_size": 502,
+        "karsl_alphabet_size": len(pipeline().alphabet.entries),
     }
 
 

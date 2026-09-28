@@ -25,10 +25,13 @@ class Settings:
     dictionary_root: Path = ROOT / "data" / "ARSLW" / "Dataset"
     video_root: Path = ROOT / "data" / "arabic_words"
     karsl_dictionary_root: Path = ROOT / "data" / "KArSL100_dictionary"
+    karsl502_dictionary_root: Path = ROOT / "data" / "KArSL502_dictionary"
+    karsl_alphabet_root: Path = ROOT / "data" / "KArSL_alphabet"
     knowledge_root: Path = ROOT / "knowledge"
     artifact_root: Path = ROOT / "artifacts"
     output_root: Path = ROOT / "outputs"
-    semantic_threshold: float = 0.88
+    semantic_threshold: float = 0.94
+    lexical_similarity_threshold: float = 0.86
     visual_threshold: float = 0.60
     pretrained_word_threshold: float = 0.45
 
@@ -49,8 +52,15 @@ class Settings:
             karsl_dictionary_root=Path(
                 os.getenv("SIGN_KARSL_DICTIONARY_ROOT", str(ROOT / "data" / "KArSL100_dictionary"))
             ),
+            karsl502_dictionary_root=Path(
+                os.getenv("SIGN_KARSL502_DICTIONARY_ROOT", str(ROOT / "data" / "KArSL502_dictionary"))
+            ),
+            karsl_alphabet_root=Path(
+                os.getenv("SIGN_KARSL_ALPHABET_ROOT", str(ROOT / "data" / "KArSL_alphabet"))
+            ),
             knowledge_root=Path(os.getenv("SIGN_KNOWLEDGE_ROOT", str(ROOT / "knowledge"))),
-            semantic_threshold=float(os.getenv("SIGN_SEMANTIC_THRESHOLD", "0.88")),
+            semantic_threshold=float(os.getenv("SIGN_SEMANTIC_THRESHOLD", "0.94")),
+            lexical_similarity_threshold=float(os.getenv("SIGN_LEXICAL_THRESHOLD", "0.86")),
             visual_threshold=float(os.getenv("SIGN_VISUAL_THRESHOLD", "0.60")),
             pretrained_word_threshold=float(os.getenv("SIGN_WORD_THRESHOLD", "0.45")),
         )

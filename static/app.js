@@ -102,13 +102,20 @@ conversationButton.addEventListener('click', async () => {
       return;
     }
     result.innerHTML += `<div class="stage"><b>2. الجملة العربية</b><p>${data.reconstructed_question}</p></div>`;
-    result.innerHTML += `<div class="stage"><b>3. معلومات RAG</b>${(data.retrieved_context || []).map(x => `<p>${x.text}</p>`).join('')}</div>`;
-    result.innerHTML += `<div class="stage"><b>4. إجابة LLM المقيّدة بالمعلومات</b><p>${data.answer}</p></div>`;
+    result.innerHTML += `<div class="stage"><b>3. الوثائق المسترجعة من RAG</b>${(data.retrieved_context || []).map(x => `<p>${x.text}</p>`).join('')}</div>`;
+    result.innerHTML += `<div class="stage"><b>4. إجابة RAG العربية الطبيعية</b><p>${data.answer}</p></div>`;
     const outGlosses = (data.answer_glosses && data.answer_glosses.length) ? data.answer_glosses : data.matches.map(x => x.gloss || x.query);
-    result.innerHTML += `<div class="stage"><b>5. كلمات الإشارة الناتجة (KArSL-100)</b><p>${outGlosses.map(x => x.gloss || x).join(' ← ')}</p></div>`;
+    result.innerHTML += `<div class="stage"><b>5. تحويل LLM إلى مفردات الإشارة</b><p>${outGlosses.map(x => x.gloss || x).join(' ← ')}</p></div>`;
+    const matchText = (data.matches || []).map(x => {
+      if (x.fallback === 'fingerspell') return `${x.query} ← تهجئة حرفية`;
+      if (x.fallback === 'unmapped_character') return `${x.query} ← حرف غير متاح`;
+      if (x.score < 0.999) return `${x.query} ← ${x.gloss} (${(x.score * 100).toFixed(1)}%)`;
+      return `${x.query} ← ${x.gloss || x.query}`;
+    }).join('<br>');
+    result.innerHTML += `<div class="stage"><b>6. مطابقة قاموس KArSL-502 والتهجئة</b><p>${matchText}</p></div>`;
     if (data.video_path) {
       const file = data.video_path.split(/[\\/]/).pop();
-      result.innerHTML += `<div class="stage"><b>6. فيديو الإجابة</b><video id="conversation-video" controls autoplay muted playsinline preload="auto" width="100%"><source src="/api/video/${encodeURIComponent(file)}?v=${Date.now()}" type="video/mp4"></video></div>`;
+      result.innerHTML += `<div class="stage"><b>7. فيديو الإجابة</b><video id="conversation-video" controls autoplay muted playsinline preload="auto" width="100%"><source src="/api/video/${encodeURIComponent(file)}?v=${Date.now()}" type="video/mp4"></video></div>`;
       const video = document.querySelector('#conversation-video');
       video.load(); video.play().catch(() => {});
     }
