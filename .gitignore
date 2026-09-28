@@ -1,0 +1,38 @@
+.env
+.env.*
+__pycache__/
+.pytest_cache/
+*.pyc
+artifacts/
+outputs/
+uploads/
+tools/7zip/
+
+# Large datasets and caches (download locally; see README)
+data/ARSLW/
+data/arabic_words/
+data/raw/
+data/Isharah_sample/
+data/KArSL100_frames/
+data/KArSL100_landmarks/
+data/KArSL100_raw/
+data/KArSL100_dictionary/
+data/KArSL100_dictionary_frames/
+data/KArSL502_parquet/
+**/.cache/
+
+# Cloned upstream model repo (see README)
+references/karsl_word_recognition/
+
+# Local media and model weights
+*.h5
+*.pth
+*.pt
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+*.zip
+*.7z
+

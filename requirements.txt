@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+python-multipart
+python-dotenv
+openai
+sentence-transformers
+transformers
+huggingface-hub
+torch
+numpy
+scikit-learn
+joblib
+opencv-python
+mediapipe
+tensorflow
+openpyxl
+pytest

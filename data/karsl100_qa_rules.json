@@ -1,0 +1,139 @@
+{
+  "dataset": "KArSL-100",
+  "description": "Reference copy of Q→A rules. Runtime uses knowledge/karsl100_closed_qa_ar.md via RAG only.",
+  "rules": [
+    {
+      "id": "skeleton_parts",
+      "question_ar": "هيكل عظمي",
+      "trigger_glosses": ["هيكل عظمي"],
+      "answer_ar": "جمجة عمود فقري قفص صدري",
+      "answer_glosses": ["جمجة", "عمود فقري", "قفص صدري"]
+    },
+    {
+      "id": "respiratory_parts",
+      "question_ar": "جهاز تنفسي",
+      "trigger_glosses": ["جهاز تنفسي"],
+      "answer_ar": "رئتان قصبة هوائية شهيق - زفير",
+      "answer_glosses": ["رئتان", "قصبة هوائية", "شهيق - زفير"]
+    },
+    {
+      "id": "digestive_parts",
+      "question_ar": "جهاز هضمي",
+      "trigger_glosses": ["جهاز هضمي"],
+      "answer_ar": "كبد البنكرياس الأمعاء الدقيقة",
+      "answer_glosses": ["كبد", "البنكرياس", "الأمعاء الدقيقة"]
+    },
+    {
+      "id": "nervous_related",
+      "question_ar": "جهاز عصبي",
+      "trigger_glosses": ["جهاز عصبي"],
+      "answer_ar": "عصب حواس خمس",
+      "answer_glosses": ["عصب", "حواس خمس"]
+    },
+    {
+      "id": "patient_care",
+      "question_ar": "مريض / مرض",
+      "trigger_glosses": ["مريض / مرض"],
+      "answer_ar": "مستشفى فحص سريري دواء",
+      "answer_glosses": ["مستشفى", "فحص سريري", "دواء"]
+    },
+    {
+      "id": "fever_care",
+      "question_ar": "حمى",
+      "trigger_glosses": ["حمى"],
+      "answer_ar": "ميزان حرارة دواء",
+      "answer_glosses": ["ميزان حرارة", "دواء"]
+    },
+    {
+      "id": "bleeding_first_aid",
+      "question_ar": "جرح نازف",
+      "trigger_glosses": ["جرح نازف"],
+      "answer_ar": "إسعافات أولية شاش / ضمادة",
+      "answer_glosses": ["إسعافات أولية", "شاش / ضمادة"]
+    },
+    {
+      "id": "burn_first_aid",
+      "question_ar": "حروق",
+      "trigger_glosses": ["حروق"],
+      "answer_ar": "إسعافات أولية مرهم",
+      "answer_glosses": ["إسعافات أولية", "مرهم"]
+    },
+    {
+      "id": "headache_pain",
+      "question_ar": "صداع ألم",
+      "trigger_glosses": ["صداع", "ألم"],
+      "answer_ar": "دواء كبسولة",
+      "answer_glosses": ["دواء", "كبسولة"]
+    },
+    {
+      "id": "headache_single",
+      "question_ar": "صداع",
+      "trigger_glosses": ["صداع"],
+      "answer_ar": "ألم دواء",
+      "answer_glosses": ["ألم", "دواء"]
+    },
+    {
+      "id": "infection_virus",
+      "question_ar": "فيروس",
+      "trigger_glosses": ["فيروس"],
+      "answer_ar": "عدوى مناعة تطعيم",
+      "answer_glosses": ["عدوى", "مناعة", "تطعيم"]
+    },
+    {
+      "id": "infection_bacteria",
+      "question_ar": "بكتريا",
+      "trigger_glosses": ["بكتريا"],
+      "answer_ar": "عدوى التهاب دواء",
+      "answer_glosses": ["عدوى", "التهاب", "دواء"]
+    },
+    {
+      "id": "epidemic_spread",
+      "question_ar": "وباء",
+      "trigger_glosses": ["وباء"],
+      "answer_ar": "إنتشار مناعة تطعيم",
+      "answer_glosses": ["إنتشار", "مناعة", "تطعيم"]
+    },
+    {
+      "id": "sleep_wake",
+      "question_ar": "ينام",
+      "trigger_glosses": ["ينام"],
+      "answer_ar": "يستيقظ",
+      "answer_glosses": ["يستيقظ"]
+    },
+    {
+      "id": "open_close",
+      "question_ar": "يفتح",
+      "trigger_glosses": ["يفتح"],
+      "answer_ar": "يقفل ( يغلق )",
+      "answer_glosses": ["يقفل ( يغلق )"]
+    },
+    {
+      "id": "up_down",
+      "question_ar": "يصعد",
+      "trigger_glosses": ["يصعد"],
+      "answer_ar": "ينزل",
+      "answer_glosses": ["ينزل"]
+    },
+    {
+      "id": "heart_emergency",
+      "question_ar": "أزمة قلبية",
+      "trigger_glosses": ["أزمة قلبية"],
+      "answer_ar": "مستشفى نبض القلب عملية جراحية",
+      "answer_glosses": ["مستشفى", "نبض القلب", "عملية جراحية"]
+    },
+    {
+      "id": "diabetes_care",
+      "question_ar": "مرض السكر / سكري",
+      "trigger_glosses": ["مرض السكر / سكري"],
+      "answer_ar": "تحليل دم دواء",
+      "answer_glosses": ["تحليل دم", "دواء"]
+    },
+    {
+      "id": "healthy_state",
+      "question_ar": "معافى",
+      "trigger_glosses": ["معافى"],
+      "answer_ar": "مناعة",
+      "answer_glosses": ["مناعة"]
+    }
+  ]
+}

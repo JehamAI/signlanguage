@@ -1,0 +1,1047 @@
+{
+  "dataset": "KArSL-100",
+  "classes": [
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton"
+    },
+    {
+      "class_index": 1,
+      "sign_id": 72,
+      "arabic": "جمجة",
+      "english": "skull"
+    },
+    {
+      "class_index": 2,
+      "sign_id": 73,
+      "arabic": "عمود فقري",
+      "english": "Backbone"
+    },
+    {
+      "class_index": 3,
+      "sign_id": 74,
+      "arabic": "قفص صدري",
+      "english": "Chest"
+    },
+    {
+      "class_index": 4,
+      "sign_id": 75,
+      "arabic": "جهاز تنفسي",
+      "english": "Respiratory device"
+    },
+    {
+      "class_index": 5,
+      "sign_id": 76,
+      "arabic": "قصبة هوائية",
+      "english": "Trachea"
+    },
+    {
+      "class_index": 6,
+      "sign_id": 77,
+      "arabic": "رئتان",
+      "english": "lungs"
+    },
+    {
+      "class_index": 7,
+      "sign_id": 78,
+      "arabic": "شهيق - زفير",
+      "english": "Ins and Outs"
+    },
+    {
+      "class_index": 8,
+      "sign_id": 79,
+      "arabic": "جهاز هضمي",
+      "english": "digestive system"
+    },
+    {
+      "class_index": 9,
+      "sign_id": 80,
+      "arabic": "وجه",
+      "english": "Face"
+    },
+    {
+      "class_index": 10,
+      "sign_id": 81,
+      "arabic": "بلعوم",
+      "english": "pharynx"
+    },
+    {
+      "class_index": 11,
+      "sign_id": 82,
+      "arabic": "كبد",
+      "english": "liver"
+    },
+    {
+      "class_index": 12,
+      "sign_id": 83,
+      "arabic": "البنكرياس",
+      "english": "pancreas"
+    },
+    {
+      "class_index": 13,
+      "sign_id": 84,
+      "arabic": "الأمعاء الدقيقة",
+      "english": "Small intestine"
+    },
+    {
+      "class_index": 14,
+      "sign_id": 85,
+      "arabic": "الأمعاء الغليظة",
+      "english": "Large intestine"
+    },
+    {
+      "class_index": 15,
+      "sign_id": 86,
+      "arabic": "الزائدة الدودية",
+      "english": "Appendix"
+    },
+    {
+      "class_index": 16,
+      "sign_id": 87,
+      "arabic": "جهاز عصبي",
+      "english": "nervous system"
+    },
+    {
+      "class_index": 17,
+      "sign_id": 88,
+      "arabic": "قلب",
+      "english": "heart"
+    },
+    {
+      "class_index": 18,
+      "sign_id": 89,
+      "arabic": "حواس خمس",
+      "english": "five senses"
+    },
+    {
+      "class_index": 19,
+      "sign_id": 90,
+      "arabic": "عضلة",
+      "english": "muscle"
+    },
+    {
+      "class_index": 20,
+      "sign_id": 91,
+      "arabic": "أنسجة",
+      "english": "tissue"
+    },
+    {
+      "class_index": 21,
+      "sign_id": 92,
+      "arabic": "مستشفى",
+      "english": "hospital"
+    },
+    {
+      "class_index": 22,
+      "sign_id": 93,
+      "arabic": "إسعافات أولية",
+      "english": "first aid"
+    },
+    {
+      "class_index": 23,
+      "sign_id": 94,
+      "arabic": "جرح نازف",
+      "english": "wound"
+    },
+    {
+      "class_index": 24,
+      "sign_id": 95,
+      "arabic": "حروق",
+      "english": "burning"
+    },
+    {
+      "class_index": 25,
+      "sign_id": 96,
+      "arabic": "مخدر/ بنج",
+      "english": "anesthetist"
+    },
+    {
+      "class_index": 26,
+      "sign_id": 97,
+      "arabic": "عملية جراحية",
+      "english": "surgery"
+    },
+    {
+      "class_index": 27,
+      "sign_id": 98,
+      "arabic": "شاش / ضمادة",
+      "english": "gauze"
+    },
+    {
+      "class_index": 28,
+      "sign_id": 99,
+      "arabic": "شريط لاصق / بلاستر",
+      "english": "adhesive tape"
+    },
+    {
+      "class_index": 29,
+      "sign_id": 100,
+      "arabic": "صيدلية",
+      "english": "pharmacy"
+    },
+    {
+      "class_index": 30,
+      "sign_id": 101,
+      "arabic": "تحليل دم",
+      "english": "blood analysis"
+    },
+    {
+      "class_index": 31,
+      "sign_id": 102,
+      "arabic": "فحص سريري",
+      "english": "physical examination"
+    },
+    {
+      "class_index": 32,
+      "sign_id": 103,
+      "arabic": "فحص النظر",
+      "english": "sight examination"
+    },
+    {
+      "class_index": 33,
+      "sign_id": 104,
+      "arabic": "ميزان حرارة",
+      "english": "thermometer"
+    },
+    {
+      "class_index": 34,
+      "sign_id": 105,
+      "arabic": "سماعة أذن",
+      "english": "stethoscope"
+    },
+    {
+      "class_index": 35,
+      "sign_id": 106,
+      "arabic": "جهاز قياس الضغط",
+      "english": "sphygmometroscope"
+    },
+    {
+      "class_index": 36,
+      "sign_id": 107,
+      "arabic": "نبض القلب",
+      "english": "pulse"
+    },
+    {
+      "class_index": 37,
+      "sign_id": 108,
+      "arabic": "تحليل طبي",
+      "english": "analysis"
+    },
+    {
+      "class_index": 38,
+      "sign_id": 109,
+      "arabic": "معمل التحاليل / مختبر",
+      "english": "analysis laboratory"
+    },
+    {
+      "class_index": 39,
+      "sign_id": 110,
+      "arabic": "صورة اشعة",
+      "english": "ray photo"
+    },
+    {
+      "class_index": 40,
+      "sign_id": 111,
+      "arabic": "التهاب",
+      "english": "inflammation"
+    },
+    {
+      "class_index": 41,
+      "sign_id": 112,
+      "arabic": "تورم",
+      "english": "swelling"
+    },
+    {
+      "class_index": 42,
+      "sign_id": 113,
+      "arabic": "زكام",
+      "english": "cold"
+    },
+    {
+      "class_index": 43,
+      "sign_id": 114,
+      "arabic": "عدوى",
+      "english": "infection"
+    },
+    {
+      "class_index": 44,
+      "sign_id": 115,
+      "arabic": "صداع",
+      "english": "headache"
+    },
+    {
+      "class_index": 45,
+      "sign_id": 116,
+      "arabic": "ألم",
+      "english": "pain"
+    },
+    {
+      "class_index": 46,
+      "sign_id": 117,
+      "arabic": "حمى",
+      "english": "fever"
+    },
+    {
+      "class_index": 47,
+      "sign_id": 118,
+      "arabic": "إسهال",
+      "english": "diarrhea"
+    },
+    {
+      "class_index": 48,
+      "sign_id": 119,
+      "arabic": "إمساك",
+      "english": "constipation"
+    },
+    {
+      "class_index": 49,
+      "sign_id": 120,
+      "arabic": "مغص",
+      "english": "colic"
+    },
+    {
+      "class_index": 50,
+      "sign_id": 121,
+      "arabic": "مرض السكر / سكري",
+      "english": "diabetes"
+    },
+    {
+      "class_index": 51,
+      "sign_id": 122,
+      "arabic": "أزمة قلبية",
+      "english": "heart attack"
+    },
+    {
+      "class_index": 52,
+      "sign_id": 123,
+      "arabic": "سرطان",
+      "english": "cancer"
+    },
+    {
+      "class_index": 53,
+      "sign_id": 124,
+      "arabic": "مرض فقدان المناعة / الإيدز",
+      "english": "Aids"
+    },
+    {
+      "class_index": 54,
+      "sign_id": 125,
+      "arabic": "تساقط الشعر",
+      "english": "Loss of hair"
+    },
+    {
+      "class_index": 55,
+      "sign_id": 126,
+      "arabic": "سكتة قلبية",
+      "english": "Heart failure"
+    },
+    {
+      "class_index": 56,
+      "sign_id": 127,
+      "arabic": "شلل نصفي",
+      "english": "hemiplegia"
+    },
+    {
+      "class_index": 57,
+      "sign_id": 128,
+      "arabic": "شلل دماغي",
+      "english": "Cerebral paralysis"
+    },
+    {
+      "class_index": 58,
+      "sign_id": 129,
+      "arabic": "ضغط الدم",
+      "english": "blood pressure"
+    },
+    {
+      "class_index": 59,
+      "sign_id": 130,
+      "arabic": "حساسية",
+      "english": "allergy"
+    },
+    {
+      "class_index": 60,
+      "sign_id": 131,
+      "arabic": "حكة / هرش",
+      "english": "itch"
+    },
+    {
+      "class_index": 61,
+      "sign_id": 132,
+      "arabic": "دواء",
+      "english": "medicine"
+    },
+    {
+      "class_index": 62,
+      "sign_id": 133,
+      "arabic": "دورة شهرية",
+      "english": "monthly circulation"
+    },
+    {
+      "class_index": 63,
+      "sign_id": 134,
+      "arabic": "مريض / مرض",
+      "english": "sick"
+    },
+    {
+      "class_index": 64,
+      "sign_id": 135,
+      "arabic": "كبسولة",
+      "english": "capsule"
+    },
+    {
+      "class_index": 65,
+      "sign_id": 136,
+      "arabic": "دواء شراب",
+      "english": "liquid medicine"
+    },
+    {
+      "class_index": 66,
+      "sign_id": 137,
+      "arabic": "مرهم",
+      "english": "ointment"
+    },
+    {
+      "class_index": 67,
+      "sign_id": 138,
+      "arabic": "قطارة",
+      "english": "dropper"
+    },
+    {
+      "class_index": 68,
+      "sign_id": 139,
+      "arabic": "أخذ إبرة",
+      "english": "acupuncture"
+    },
+    {
+      "class_index": 69,
+      "sign_id": 140,
+      "arabic": "تلقيح",
+      "english": "pollination"
+    },
+    {
+      "class_index": 70,
+      "sign_id": 141,
+      "arabic": "تطعيم",
+      "english": "inoculation"
+    },
+    {
+      "class_index": 71,
+      "sign_id": 142,
+      "arabic": "أشعة ليزر",
+      "english": "laser ray"
+    },
+    {
+      "class_index": 72,
+      "sign_id": 143,
+      "arabic": "مخدرات",
+      "english": "drug's"
+    },
+    {
+      "class_index": 73,
+      "sign_id": 144,
+      "arabic": "إدمان",
+      "english": "addiction"
+    },
+    {
+      "class_index": 74,
+      "sign_id": 145,
+      "arabic": "توحد / أوتيزم",
+      "english": "oneness"
+    },
+    {
+      "class_index": 75,
+      "sign_id": 146,
+      "arabic": "منغولي",
+      "english": "mongoloid"
+    },
+    {
+      "class_index": 76,
+      "sign_id": 147,
+      "arabic": "بكتريا",
+      "english": "bacterium"
+    },
+    {
+      "class_index": 77,
+      "sign_id": 148,
+      "arabic": "جرثومة",
+      "english": "microbe"
+    },
+    {
+      "class_index": 78,
+      "sign_id": 149,
+      "arabic": "فيروس",
+      "english": "virus"
+    },
+    {
+      "class_index": 79,
+      "sign_id": 150,
+      "arabic": "إنتشار",
+      "english": "spread"
+    },
+    {
+      "class_index": 80,
+      "sign_id": 151,
+      "arabic": "إعاقة",
+      "english": "hindrance"
+    },
+    {
+      "class_index": 81,
+      "sign_id": 152,
+      "arabic": "إعاقة ذهنية",
+      "english": "mentality hindrance"
+    },
+    {
+      "class_index": 82,
+      "sign_id": 153,
+      "arabic": "اعاقة جسدية",
+      "english": "physical disability"
+    },
+    {
+      "class_index": 83,
+      "sign_id": 154,
+      "arabic": "اعاقة بصرية",
+      "english": "visual impairment"
+    },
+    {
+      "class_index": 84,
+      "sign_id": 155,
+      "arabic": "إعاقة سمعية",
+      "english": "hearing hindrance"
+    },
+    {
+      "class_index": 85,
+      "sign_id": 156,
+      "arabic": "وباء",
+      "english": "epidemic"
+    },
+    {
+      "class_index": 86,
+      "sign_id": 157,
+      "arabic": "مناعة",
+      "english": "immunity"
+    },
+    {
+      "class_index": 87,
+      "sign_id": 158,
+      "arabic": "عصب",
+      "english": "nerve"
+    },
+    {
+      "class_index": 88,
+      "sign_id": 159,
+      "arabic": "معافى",
+      "english": "healthy"
+    },
+    {
+      "class_index": 89,
+      "sign_id": 160,
+      "arabic": "يأكل",
+      "english": "eat"
+    },
+    {
+      "class_index": 90,
+      "sign_id": 161,
+      "arabic": "يشرب",
+      "english": "drink"
+    },
+    {
+      "class_index": 91,
+      "sign_id": 162,
+      "arabic": "ينام",
+      "english": "sleep"
+    },
+    {
+      "class_index": 92,
+      "sign_id": 163,
+      "arabic": "يستيقظ",
+      "english": "wake up"
+    },
+    {
+      "class_index": 93,
+      "sign_id": 164,
+      "arabic": "يسمع",
+      "english": "hear"
+    },
+    {
+      "class_index": 94,
+      "sign_id": 165,
+      "arabic": "يسكت",
+      "english": "silence"
+    },
+    {
+      "class_index": 95,
+      "sign_id": 166,
+      "arabic": "يشم",
+      "english": "inhale"
+    },
+    {
+      "class_index": 96,
+      "sign_id": 167,
+      "arabic": "يصعد",
+      "english": "rise"
+    },
+    {
+      "class_index": 97,
+      "sign_id": 168,
+      "arabic": "ينزل",
+      "english": "descend"
+    },
+    {
+      "class_index": 98,
+      "sign_id": 169,
+      "arabic": "يفتح",
+      "english": "open"
+    },
+    {
+      "class_index": 99,
+      "sign_id": 170,
+      "arabic": "يقفل ( يغلق )",
+      "english": "close"
+    }
+  ],
+  "sequences": [
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_52_41)_c",
+      "frames": 29
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_52_44)_c",
+      "frames": 42
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_52_49)_c",
+      "frames": 44
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_52_53)_c",
+      "frames": 47
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_52_58)_c",
+      "frames": 50
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_53_03)_c",
+      "frames": 47
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_53_08)_c",
+      "frames": 44
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_53_12)_c",
+      "frames": 52
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_53_17)_c",
+      "frames": 51
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_53_23)_c",
+      "frames": 50
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_53_29)_c",
+      "frames": 49
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_53_34)_c",
+      "frames": 54
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_53_39)_c",
+      "frames": 53
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_53_45)_c",
+      "frames": 53
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_53_50)_c",
+      "frames": 56
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_53_56)_c",
+      "frames": 55
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_54_03)_c",
+      "frames": 60
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_54_09)_c",
+      "frames": 62
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_54_15)_c",
+      "frames": 63
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_54_22)_c",
+      "frames": 52
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_54_36)_c",
+      "frames": 44
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_54_41)_c",
+      "frames": 48
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_54_46)_c",
+      "frames": 44
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_54_51)_c",
+      "frames": 55
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(01_12_16_15_54_56)_c",
+      "frames": 47
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(20_11_16_16_16_41)_c",
+      "frames": 34
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(20_11_16_16_16_44)_c",
+      "frames": 40
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(20_11_16_16_16_49)_c",
+      "frames": 41
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(20_11_16_16_16_53)_c",
+      "frames": 45
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(20_11_16_16_16_57)_c",
+      "frames": 43
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(20_11_16_16_17_01)_c",
+      "frames": 46
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(20_11_16_16_17_05)_c",
+      "frames": 46
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(20_11_16_16_17_09)_c",
+      "frames": 48
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(20_11_16_16_17_13)_c",
+      "frames": 46
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(20_11_16_16_17_17)_c",
+      "frames": 48
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(20_11_16_16_17_21)_c",
+      "frames": 34
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(20_11_16_16_17_25)_c",
+      "frames": 42
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(20_11_16_16_17_30)_c",
+      "frames": 47
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(20_11_16_16_17_33)_c",
+      "frames": 48
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(20_11_16_16_17_37)_c",
+      "frames": 46
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(20_11_16_16_17_41)_c",
+      "frames": 44
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(20_11_16_16_17_46)_c",
+      "frames": 44
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(20_11_16_16_17_50)_c",
+      "frames": 44
+    },
+    {
+      "class_index": 0,
+      "sign_id": 71,
+      "arabic": "هيكل عظمي",
+      "english": "Skeleton",
+      "signer": 3,
+      "take": 1,
+      "sequence": "data/KArSL100_frames/0071/03_01_0071_(20_11_16_16_17_54)_c",
+      "frames": 30
+    }
+  ]
+}

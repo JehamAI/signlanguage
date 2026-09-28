@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>محادثة لغة الإشارة العربية</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main>
+    <header><span class="tag">نموذج بحثي</span><h1>محادثة لغة الإشارة العربية</h1><p>حوّل الإجابة العربية إلى تسلسل إشارات مطابق لقاموس محلي.</p></header>
+    <section>
+      <label for="text">النص العربي</label>
+      <textarea id="text" rows="5" placeholder="اكتب جملة عربية قصيرة"></textarea>
+      <button id="translate">تحويل إلى إشارات</button>
+      <p id="status"></p>
+      <div id="result"></div>
+    </section>
+    <section class="sign-flow">
+      <h2>محادثة من الإشارة إلى الإجابة</h2>
+      <p>حمّل مقطعاً منفصلاً لكل كلمة إشارية وبالترتيب. نموذج KArSL-100 الحالي يتعرف على 100 إشارة عربية.</p>
+      <details>
+        <summary>عرض الكلمات التي يستطيع النموذج التعرّف عليها</summary>
+        <p id="recognition-vocabulary" class="vocabulary">جارٍ تحميل قائمة الكلمات…</p>
+      </details>
+      <label for="sign-files">مقاطع الكلمات الإشارية</label>
+      <input id="sign-files" type="file" accept="video/*" multiple>
+      <div id="selected-sign-files" class="selected-files">لم يتم اختيار مقاطع بعد.</div>
+      <button id="clear-sign-files" type="button" class="secondary">مسح المقاطع المختارة</button>
+      <label class="checkbox"><input id="continuous-video" type="checkbox" checked> فيديو جملة واحد مع وقفة واضحة بين كل إشارتين</label>
+      <label class="checkbox"><input id="allow-low" type="checkbox"> متابعة النتائج منخفضة الثقة لأغراض العرض فقط</label>
+      <button id="run-conversation">تشغيل المسار الكامل</button>
+      <p id="conversation-status"></p>
+      <div id="conversation-result"></div>
+    </section>
+  </main>
+  <script src="/static/app.js?v=7"></script>
+</body>
+</html>
