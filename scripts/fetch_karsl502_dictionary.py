@@ -46,6 +46,17 @@ def reuse_existing(sign_id: int, destination: Path) -> bool:
 
 
 def main() -> None:
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--repair",
+        type=int,
+        nargs="*",
+        help="Re-download specific sign IDs even if sign.mp4 already exists",
+    )
+    args = parser.parse_args()
+
     class_labels = labels()
     video_root = ROOT / "data" / "KArSL502_dictionary"
     frame_root = ROOT / "data" / "KArSL502_dictionary_frames"
@@ -64,6 +75,11 @@ def main() -> None:
         sign_id for sign_id in class_labels
         if not (video_root / f"{sign_id:04d}" / "sign.mp4").exists()
     }
+    if args.repair:
+        for sign_id in args.repair:
+            output = video_root / f"{sign_id:04d}" / "sign.mp4"
+            output.unlink(missing_ok=True)
+            missing_ids.add(sign_id)
     print(f"Reused {len(class_labels) - len(missing_ids)}; fetching {len(missing_ids)} classes", flush=True)
     if not missing_ids:
         return

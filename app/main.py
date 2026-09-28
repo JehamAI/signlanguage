@@ -18,8 +18,9 @@ from .rag import LocalRAG
 from .recognizer import VisualRecognizer
 from .pretrained_recognizer import pretrained_recognizer
 from .karsl_recognizer import karsl100_recognizer
+from .karsl502_recognizer import karsl502_recognizer
 from .embeddings import backend_name
-from .segmenter import split_paused_signs
+from .segmenter import split_isolated_signs
 
 
 class TextRequest(BaseModel):
@@ -72,6 +73,9 @@ def health():
             list((ROOT / "references" / "karsl_word_recognition").glob("*3_signers*Accuracy_*.h5"))
         ),
         "karsl100_vocabulary_size": 100,
+        "karsl502_input_model_available": (
+            settings.artifact_root / "karsl502_signbart" / "model.safetensors"
+        ).exists(),
         "karsl502_output_vocabulary_size": 502,
         "karsl_alphabet_size": len(pipeline().alphabet.entries),
     }
@@ -85,10 +89,15 @@ def vocabulary():
 @app.get("/api/recognition-vocabulary")
 def recognition_vocabulary():
     """Words recognized from input video; this differs from output media availability."""
-    import json
+    from openpyxl import load_workbook
 
-    manifest = json.loads((ROOT / "data" / "karsl100_manifest.json").read_text(encoding="utf-8"))
-    return sorted(manifest["classes"], key=lambda item: item["class_index"])
+    workbook = ROOT / "references" / "karsl_word_recognition" / "KARSL-502_Labels.xlsx"
+    sheet = load_workbook(workbook, read_only=True, data_only=True).active
+    return [
+        {"sign_id": int(row[0]), "class_index": int(row[0]) - 1, "arabic": str(row[1]).strip()}
+        for row in sheet.iter_rows(min_row=2, values_only=True)
+        if row[0] is not None and row[1] is not None
+    ]
 
 
 @app.post("/api/text-to-sign")
@@ -153,14 +162,18 @@ def sign_conversation(
     temporary_directories: list[Path] = []
     predictions = []
     try:
-        # The KArSL model is temporal and covers 100 Arabic word/phrase classes.
-        # Keep the 10-word model available as a lightweight legacy fallback.
+        # Prefer the pretrained 502-class SignBart skeleton model. Retain the
+        # 100-class BiLSTM and 10-word model as compatibility fallbacks.
         try:
-            recognizer = karsl100_recognizer()
-            model_name = "karsl100_bilstm"
-        except (FileNotFoundError, ImportError, ValueError):
-            recognizer = pretrained_recognizer()
-            model_name = "legacy_10_word_t5"
+            recognizer = karsl502_recognizer()
+            model_name = "karsl502_signbart"
+        except (FileNotFoundError, ImportError, ModuleNotFoundError, RuntimeError, ValueError):
+            try:
+                recognizer = karsl100_recognizer()
+                model_name = "karsl100_bilstm"
+            except (FileNotFoundError, ImportError, ModuleNotFoundError, RuntimeError, ValueError):
+                recognizer = pretrained_recognizer()
+                model_name = "legacy_10_word_t5"
         original_names: list[str] = []
         for file in files:
             suffix = Path(file.filename or "sign.mp4").suffix.lower()
@@ -179,7 +192,7 @@ def sign_conversation(
                 raise HTTPException(status_code=400, detail="Continuous mode accepts exactly one sentence video")
             segment_dir = upload_root / f"segments-{uuid4().hex}"
             temporary_directories.append(segment_dir)
-            segments = split_paused_signs(paths[0], segment_dir)
+            segments = split_isolated_signs(paths[0], segment_dir)
             recognition_paths = [segment.path for segment in segments]
             paths.extend(recognition_paths)
             boundaries = [

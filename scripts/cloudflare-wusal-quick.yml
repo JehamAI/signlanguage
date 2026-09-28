@@ -1,0 +1,5 @@
+# Quick Tunnel helper config — must forward to Wusal, NOT http_status:404.
+# Do not merge into %USERPROFILE%\.cloudflared\config.yml (Evalia named tunnel).
+
+ingress:
+  - service: http://127.0.0.1:8000

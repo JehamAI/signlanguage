@@ -61,32 +61,53 @@ function renderSelection() {
   const video = $('#input-video');
   video.src = inputObjectUrl;
   video.muted = true;
+  video.playsInline = true;
+  video.preload = 'auto';
   video.autoplay = true;
   $('#input-stage').classList.remove('empty-stage');
   $('#upload-placeholder').hidden = true;
+  video.onerror = () => {
+    $('#input-video-state').textContent = 'تعذر عرض المعاينة';
+    $('#conversation-status').textContent =
+      'المتصفح لا يستطيع تشغيل هذا الترميز، لكن التحليل على الخادم يمكن أن يعمل. انتظر أو اضغط «إرسال للمساعد».';
+  };
   video.onloadeddata = () => {
     $('#input-video-state').textContent = 'يُعرض الآن';
-    $('#conversation-status').textContent = 'سيبدأ التحليل تلقائياً عند انتهاء الفيديو.';
     video.play().catch(() => {
-      $('#input-video-state').textContent = 'اضغط تشغيل';
-      $('#conversation-status').textContent = 'اضغط تشغيل على الفيديو؛ سيبدأ التحليل تلقائياً عند انتهائه.';
+      $('#input-video-state').textContent = 'اضغط ▶ للمعاينة';
     });
-  };
-  video.onended = () => {
-    $('#input-video-state').textContent = 'انتهى العرض';
-    runConversation();
   };
   video.load();
 }
 
+function isVideoFile(file) {
+  if (file.type && file.type.startsWith('video/')) return true;
+  return /\.(mp4|mov|webm|mkv|avi)$/i.test(file.name || '');
+}
+
 function addSelectedFiles(files) {
-  for (const file of files) {
-    if (!file.type.startsWith('video/')) continue;
+  const incoming = Array.from(files || []);
+  let added = 0;
+  let rejected = 0;
+  for (const file of incoming) {
+    if (!isVideoFile(file)) {
+      rejected += 1;
+      continue;
+    }
     if (!selectedSignFiles.some(x => x.name === file.name && x.size === file.size && x.lastModified === file.lastModified)) {
       selectedSignFiles.push(file);
+      added += 1;
     }
   }
+  if (rejected && !added) {
+    $('#conversation-status').textContent = 'لم يُقبل الملف. استخدم MP4 أو MOV أو WebM.';
+  } else if (added) {
+    $('#conversation-status').textContent = 'تم اختيار الفيديو. جارٍ بدء التحليل…';
+  }
   renderSelection();
+  if (added && selectedSignFiles.length === 1) {
+    window.setTimeout(() => runConversation(), 400);
+  }
 }
 
 $('#sign-files').addEventListener('change', event => {

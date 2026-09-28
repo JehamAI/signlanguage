@@ -1,0 +1,52 @@
+[
+  {
+    "file": "demo_queries\\01-airport-medical.mp4",
+    "example_id": "airport-medical",
+    "title_ar": "مسافر مريض يطلب المساعدة",
+    "expected_glosses": [
+      "مريض / مرض",
+      "ألم",
+      "يساعد"
+    ]
+  },
+  {
+    "file": "demo_queries\\02-airport-luggage.mp4",
+    "example_id": "airport-luggage",
+    "title_ar": "طلب مساعدة في حمل حقيبة سفر ثقيلة",
+    "expected_glosses": [
+      "حقيبة سفر",
+      "ثقيل",
+      "يساعد"
+    ]
+  },
+  {
+    "file": "demo_queries\\03-library-access.mp4",
+    "example_id": "library-access",
+    "title_ar": "طلب مترجم لغة إشارة في المكتبة",
+    "expected_glosses": [
+      "إعاقة سمعية",
+      "مترجم لغة الإشارة",
+      "يساعد"
+    ]
+  },
+  {
+    "file": "demo_queries\\04-restroom-directions.mp4",
+    "example_id": "restroom-directions",
+    "title_ar": "السؤال عن دورة مياه قريبة",
+    "expected_glosses": [
+      "دورة مياه (حمام)",
+      "قريب",
+      "هنا"
+    ]
+  },
+  {
+    "file": "demo_queries\\05-headache-fever.mp4",
+    "example_id": "headache-fever",
+    "title_ar": "طلب إرشاد للصداع والحمى",
+    "expected_glosses": [
+      "صداع",
+      "حمى",
+      "دواء"
+    ]
+  }
+]

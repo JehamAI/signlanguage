@@ -1,0 +1,317 @@
+[
+  {
+    "example_id": "airport-medical",
+    "title_ar": "مسافر مريض يطلب المساعدة",
+    "expected_glosses": [
+      "مريض / مرض",
+      "ألم",
+      "يساعد"
+    ],
+    "input_video": "paper_examples\\input\\airport-medical.mp4",
+    "input_seconds": 7.583,
+    "segments": [
+      {
+        "path": "paper_examples\\segments\\airport-medical\\segment-01.mp4",
+        "start_frame": 17,
+        "end_frame": 54,
+        "start_seconds": 0.7083333333333334,
+        "end_seconds": 2.2916666666666665
+      },
+      {
+        "path": "paper_examples\\segments\\airport-medical\\segment-02.mp4",
+        "start_frame": 72,
+        "end_frame": 108,
+        "start_seconds": 3.0,
+        "end_seconds": 4.541666666666667
+      },
+      {
+        "path": "paper_examples\\segments\\airport-medical\\segment-03.mp4",
+        "start_frame": 126,
+        "end_frame": 164,
+        "start_seconds": 5.25,
+        "end_seconds": 6.875
+      }
+    ],
+    "predictions": [
+      {
+        "gloss": "مريض / مرض",
+        "confidence": 0.9998868703842163,
+        "accepted": true,
+        "frames_with_hands": 38,
+        "sampled_frames": 38
+      },
+      {
+        "gloss": "ألم",
+        "confidence": 0.9685686230659485,
+        "accepted": true,
+        "frames_with_hands": 37,
+        "sampled_frames": 37
+      },
+      {
+        "gloss": "يساعد",
+        "confidence": 0.9918318390846252,
+        "accepted": true,
+        "frames_with_hands": 14,
+        "sampled_frames": 14
+      }
+    ],
+    "recognized_glosses": [
+      "مريض / مرض",
+      "ألم",
+      "يساعد"
+    ],
+    "exact_recognition": true
+  },
+  {
+    "example_id": "airport-luggage",
+    "title_ar": "طلب مساعدة في حمل حقيبة سفر ثقيلة",
+    "expected_glosses": [
+      "حقيبة سفر",
+      "ثقيل",
+      "يساعد"
+    ],
+    "input_video": "paper_examples\\input\\airport-luggage.mp4",
+    "input_seconds": 6.75,
+    "segments": [
+      {
+        "path": "paper_examples\\segments\\airport-luggage\\segment-01.mp4",
+        "start_frame": 17,
+        "end_frame": 40,
+        "start_seconds": 0.7083333333333334,
+        "end_seconds": 1.7083333333333333
+      },
+      {
+        "path": "paper_examples\\segments\\airport-luggage\\segment-02.mp4",
+        "start_frame": 59,
+        "end_frame": 88,
+        "start_seconds": 2.4583333333333335,
+        "end_seconds": 3.7083333333333335
+      },
+      {
+        "path": "paper_examples\\segments\\airport-luggage\\segment-03.mp4",
+        "start_frame": 106,
+        "end_frame": 144,
+        "start_seconds": 4.416666666666667,
+        "end_seconds": 6.041666666666667
+      }
+    ],
+    "predictions": [
+      {
+        "gloss": "حقيبة سفر",
+        "confidence": 0.9968087077140808,
+        "accepted": true,
+        "frames_with_hands": 18,
+        "sampled_frames": 18
+      },
+      {
+        "gloss": "ثقيل",
+        "confidence": 0.9873464703559875,
+        "accepted": true,
+        "frames_with_hands": 24,
+        "sampled_frames": 24
+      },
+      {
+        "gloss": "يساعد",
+        "confidence": 0.43300333619117737,
+        "accepted": false,
+        "frames_with_hands": 16,
+        "sampled_frames": 16
+      }
+    ],
+    "recognized_glosses": [
+      "حقيبة سفر",
+      "ثقيل",
+      "يساعد"
+    ],
+    "exact_recognition": true
+  },
+  {
+    "example_id": "library-access",
+    "title_ar": "طلب مترجم لغة إشارة في المكتبة",
+    "expected_glosses": [
+      "إعاقة سمعية",
+      "مترجم لغة الإشارة",
+      "يساعد"
+    ],
+    "input_video": "paper_examples\\input\\library-access.mp4",
+    "input_seconds": 9.125,
+    "segments": [
+      {
+        "path": "paper_examples\\segments\\library-access\\segment-01.mp4",
+        "start_frame": 17,
+        "end_frame": 67,
+        "start_seconds": 0.7083333333333334,
+        "end_seconds": 2.8333333333333335
+      },
+      {
+        "path": "paper_examples\\segments\\library-access\\segment-02.mp4",
+        "start_frame": 85,
+        "end_frame": 145,
+        "start_seconds": 3.5416666666666665,
+        "end_seconds": 6.083333333333333
+      },
+      {
+        "path": "paper_examples\\segments\\library-access\\segment-03.mp4",
+        "start_frame": 163,
+        "end_frame": 177,
+        "start_seconds": 6.791666666666667,
+        "end_seconds": 7.416666666666667
+      }
+    ],
+    "predictions": [
+      {
+        "gloss": "إعاقة سمعية",
+        "confidence": 0.9999923706054688,
+        "accepted": true,
+        "frames_with_hands": 51,
+        "sampled_frames": 51
+      },
+      {
+        "gloss": "مترجم لغة الإشارة",
+        "confidence": 0.9999315738677979,
+        "accepted": true,
+        "frames_with_hands": 48,
+        "sampled_frames": 48
+      },
+      {
+        "gloss": "يساعد",
+        "confidence": 0.9794046878814697,
+        "accepted": true,
+        "frames_with_hands": 10,
+        "sampled_frames": 10
+      }
+    ],
+    "recognized_glosses": [
+      "إعاقة سمعية",
+      "مترجم لغة الإشارة",
+      "يساعد"
+    ],
+    "exact_recognition": true
+  },
+  {
+    "example_id": "restroom-directions",
+    "title_ar": "السؤال عن دورة مياه قريبة",
+    "expected_glosses": [
+      "دورة مياه (حمام)",
+      "قريب",
+      "هنا"
+    ],
+    "input_video": "paper_examples\\input\\restroom-directions.mp4",
+    "input_seconds": 6.083,
+    "segments": [
+      {
+        "path": "paper_examples\\segments\\restroom-directions\\segment-01.mp4",
+        "start_frame": 17,
+        "end_frame": 42,
+        "start_seconds": 0.7083333333333334,
+        "end_seconds": 1.7916666666666667
+      },
+      {
+        "path": "paper_examples\\segments\\restroom-directions\\segment-02.mp4",
+        "start_frame": 60,
+        "end_frame": 83,
+        "start_seconds": 2.5,
+        "end_seconds": 3.5
+      },
+      {
+        "path": "paper_examples\\segments\\restroom-directions\\segment-03.mp4",
+        "start_frame": 101,
+        "end_frame": 128,
+        "start_seconds": 4.208333333333333,
+        "end_seconds": 5.375
+      }
+    ],
+    "predictions": [
+      {
+        "gloss": "دورة مياه (حمام)",
+        "confidence": 0.9999929666519165,
+        "accepted": true,
+        "frames_with_hands": 26,
+        "sampled_frames": 26
+      },
+      {
+        "gloss": "قريب",
+        "confidence": 0.9997934699058533,
+        "accepted": true,
+        "frames_with_hands": 24,
+        "sampled_frames": 24
+      },
+      {
+        "gloss": "هنا",
+        "confidence": 0.9993164539337158,
+        "accepted": true,
+        "frames_with_hands": 27,
+        "sampled_frames": 27
+      }
+    ],
+    "recognized_glosses": [
+      "دورة مياه (حمام)",
+      "قريب",
+      "هنا"
+    ],
+    "exact_recognition": true
+  },
+  {
+    "example_id": "headache-fever",
+    "title_ar": "طلب إرشاد للصداع والحمى",
+    "expected_glosses": [
+      "صداع",
+      "حمى",
+      "دواء"
+    ],
+    "input_video": "paper_examples\\input\\headache-fever.mp4",
+    "input_seconds": 8.958,
+    "segments": [
+      {
+        "path": "paper_examples\\segments\\headache-fever\\segment-01.mp4",
+        "start_frame": 17,
+        "end_frame": 79,
+        "start_seconds": 0.7083333333333334,
+        "end_seconds": 3.3333333333333335
+      },
+      {
+        "path": "paper_examples\\segments\\headache-fever\\segment-02.mp4",
+        "start_frame": 97,
+        "end_frame": 139,
+        "start_seconds": 4.041666666666667,
+        "end_seconds": 5.833333333333333
+      },
+      {
+        "path": "paper_examples\\segments\\headache-fever\\segment-03.mp4",
+        "start_frame": 157,
+        "end_frame": 197,
+        "start_seconds": 6.541666666666667,
+        "end_seconds": 8.25
+      }
+    ],
+    "predictions": [
+      {
+        "gloss": "صداع",
+        "confidence": 0.9921517372131348,
+        "accepted": true,
+        "frames_with_hands": 63,
+        "sampled_frames": 63
+      },
+      {
+        "gloss": "حمى",
+        "confidence": 0.999988317489624,
+        "accepted": true,
+        "frames_with_hands": 43,
+        "sampled_frames": 43
+      },
+      {
+        "gloss": "دواء",
+        "confidence": 0.9844316840171814,
+        "accepted": true,
+        "frames_with_hands": 38,
+        "sampled_frames": 38
+      }
+    ],
+    "recognized_glosses": [
+      "صداع",
+      "حمى",
+      "دواء"
+    ],
+    "exact_recognition": true
+  }
+]

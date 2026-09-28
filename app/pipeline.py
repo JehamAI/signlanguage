@@ -25,13 +25,19 @@ class ConversationPipeline:
         self._output_labels: tuple[str, ...] | None = None
         self._output_vectors = None
 
-    def _sign_candidates(self, text: str, limit: int = 60) -> list[str]:
+    def _sign_candidates(self, text: str) -> list[str]:
+        """Return the complete output vocabulary, with likely matches first.
+
+        The embedding rank is only a prompt-order hint. It must never hide a valid
+        dictionary concept from the LLM, especially because the local embedding model
+        is general-purpose and its Arabic semantic ranking is imperfect.
+        """
         vocab = karsl502_vocabulary()
         if self._output_vectors is None:
             self._output_labels = vocab.labels
             self._output_vectors = embed(list(vocab.labels))
         scores = self._output_vectors @ embed(text)[0]
-        indexes = np.argsort(scores)[::-1][:limit]
+        indexes = np.argsort(scores)[::-1]
         candidates = [vocab.labels[int(index)] for index in indexes]
         # Always retain labels stated literally in the answer.
         for label in vocab.extract_glosses_from_text(text):
@@ -41,7 +47,9 @@ class ConversationPipeline:
 
     def text_to_sign(self, text: str, compose_video: bool = True) -> dict:
         simplified = self.llm.simplify_for_signing(text, [e.gloss for e in self.dictionary.entries])
-        return self._matches_to_result(text, simplified.sentence, simplified.sign_glosses, compose_video)
+        result = self._matches_to_result(text, simplified.sentence, simplified.sign_glosses, compose_video)
+        result["llm_dictionary_mappings"] = simplified.dictionary_mappings
+        return result
 
     def glosses_to_sign(self, glosses: list[str], compose_video: bool = True, source_text: str = "") -> dict:
         vocab = karsl502_vocabulary()
@@ -86,9 +94,9 @@ class ConversationPipeline:
         return result
 
     def answer_glosses(self, glosses: list[str], compose_video: bool = True) -> dict:
-        input_vocab = karsl100_vocabulary()
+        input_vocab = karsl502_vocabulary()
         output_vocab = karsl502_vocabulary()
-        recognized = input_vocab.sanitize_glosses(glosses)
+        recognized = input_vocab.sanitize_glosses(glosses) or glosses
         question = self.llm.reconstruct(glosses)
         rag_query = f"{' '.join(recognized or glosses)} {question}"
         retrieved = self.rag.retrieve_karsl100(rag_query, recognized_glosses=recognized or glosses, k=4)
@@ -106,6 +114,7 @@ class ConversationPipeline:
         resolved = [output_vocab.resolve(item) or item.strip() for item in answer_glosses if item.strip()]
         sign_sentence = " ".join(resolved)
         result = self._matches_to_result(answer, sign_sentence, resolved, compose_video)
+        result["llm_dictionary_mappings"] = signing.dictionary_mappings
         result.update(
             {
                 "recognized_glosses": glosses,

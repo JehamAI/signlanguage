@@ -10,6 +10,7 @@ from .config import Settings
 class StructuredArabic:
     sentence: str
     sign_glosses: list[str]
+    dictionary_mappings: list[dict]
 
 
 class LLMService:
@@ -80,21 +81,93 @@ class LLMService:
         return answer, glosses
 
     def simplify_for_signing(self, sentence: str, vocabulary: list[str]) -> StructuredArabic:
-        data = self._json(
+        plan = self._json(
             "Translate the Arabic answer into a COMPLETE Saudi Arabic Sign Language (Saudi ArSL) gloss sentence, "
             "not a summary and not word-for-word spoken Arabic. Use an appropriate sign-language ordering such as "
             "topic/condition first and comment/action second. Remove spoken-Arabic grammatical particles only as "
             "required by sign-language structure, but preserve every meaning-bearing concept: conditions, severity, "
-            "negation, actions, destinations, people, time, quantity and direction. "
-            "For EACH concept, choose the closest meaning-preserving item from available_vocabulary and copy its "
-            "spelling EXACTLY. Map inflected forms to their dictionary lemma. Never choose a merely similar-looking "
-            "word that changes meaning. If no safe dictionary equivalent exists, keep that concise Arabic gloss "
-            "unchanged so it can be fingerspelled; there is no limit on essential missing glosses. "
+            "negation, actions, destinations, people, time, quantity and direction. Do not consult or anticipate a "
+            "dictionary in this step. Produce concise semantic gloss concepts that preserve the full answer. "
             "The sentence field MUST be the full space-separated sign-gloss sentence. The sign_glosses array MUST "
             "contain EVERY gloss in that sentence, once and in exactly the same order. Normally use 3-12 glosses. "
             "Example meaning: 'if headache is severe or with fever, go to hospital and consult a doctor'. Valid "
             "Saudi-ArSL-style gloss plan: [صداع, شديد, حمى, اذهب, مستشفى, طبيب]. "
             "Return JSON with sentence and sign_glosses.",
-            json.dumps({"sentence": sentence, "available_vocabulary": vocabulary}, ensure_ascii=False),
+            json.dumps({"sentence": sentence}, ensure_ascii=False),
         )
-        return StructuredArabic(str(data.get("sentence", sentence)), [str(x) for x in data["sign_glosses"]])
+        concepts = [str(x).strip() for x in plan.get("sign_glosses", []) if str(x).strip()]
+        mapping = self._json(
+            "Map each Saudi-ArSL semantic concept to a closed sign dictionary. This is semantic equivalence, not "
+            "spelling similarity. For each input concept, select dictionary_gloss only when it preserves the same "
+            "meaning in this sentence; copy it EXACTLY from available_vocabulary. Inflection-to-lemma and true "
+            "synonyms are allowed. Related but different concepts are forbidden. If no safe equivalent exists, set "
+            "dictionary_gloss to null so the system can fingerspell the original concept. Never omit a concept and "
+            "preserve input order. Return JSON with mappings, an array of objects containing concept, "
+            "dictionary_gloss, relation (exact, lemma, synonym, or none), confidence from 0 to 1, and a short reason.",
+            json.dumps(
+                {"sentence": sentence, "concepts": concepts, "available_vocabulary": vocabulary},
+                ensure_ascii=False,
+            ),
+        )
+        allowed = set(vocabulary)
+        raw_mappings = mapping.get("mappings", [])
+        safe_glosses: list[str] = []
+        audited: list[dict] = []
+        for index, concept in enumerate(concepts):
+            item = raw_mappings[index] if index < len(raw_mappings) and isinstance(raw_mappings[index], dict) else {}
+            candidate = item.get("dictionary_gloss")
+            confidence = float(item.get("confidence", 0.0) or 0.0)
+            accepted = isinstance(candidate, str) and candidate in allowed and confidence >= 0.85
+            selected = candidate if accepted else concept
+            safe_glosses.append(selected)
+            audited.append(
+                {
+                    "concept": concept,
+                    "dictionary_gloss": candidate if isinstance(candidate, str) else None,
+                    "relation": str(item.get("relation", "none")),
+                    "confidence": confidence,
+                    "reason": str(item.get("reason", "")),
+                    "accepted": accepted,
+                    "selected_gloss": selected,
+                }
+            )
+        if any(not item["accepted"] for item in audited):
+            refinement = self._json(
+                "Minimally revise a Saudi-ArSL gloss plan after closed-dictionary lookup. You have the complete "
+                "original Arabic answer, its semantic concepts, the first lookup audit, and the full dictionary. "
+                "You may reorder the glosses or replace a missing concept with a short meaning-equivalent expression "
+                "using one or more exact dictionary items. Preserve every condition, negation, action, destination, "
+                "person, time, quantity, direction, and safety qualification. Do not add advice or broaden meaning. "
+                "If a safe equivalent is uncertain, retain the original concise concept unchanged for fingerspelling. "
+                "Return JSON with sign_glosses, covered_concepts, omitted_concepts, confidence, and reason. Every item "
+                "in sign_glosses must be either copied EXACTLY from available_vocabulary or copied EXACTLY from the "
+                "original concepts.",
+                json.dumps(
+                    {
+                        "answer": sentence,
+                        "original_concepts": concepts,
+                        "first_lookup": audited,
+                        "available_vocabulary": vocabulary,
+                    },
+                    ensure_ascii=False,
+                ),
+            )
+            revised = [str(x).strip() for x in refinement.get("sign_glosses", []) if str(x).strip()]
+            permitted = allowed | set(concepts)
+            omitted = [str(x) for x in refinement.get("omitted_concepts", []) if str(x).strip()]
+            confidence = float(refinement.get("confidence", 0.0) or 0.0)
+            refinement_accepted = bool(revised) and all(x in permitted for x in revised) and not omitted and confidence >= 0.85
+            audited.append(
+                {
+                    "stage": "minimal_sentence_refinement",
+                    "accepted": refinement_accepted,
+                    "confidence": confidence,
+                    "covered_concepts": refinement.get("covered_concepts", []),
+                    "omitted_concepts": omitted,
+                    "reason": str(refinement.get("reason", "")),
+                    "selected_glosses": revised,
+                }
+            )
+            if refinement_accepted:
+                safe_glosses = revised
+        return StructuredArabic(" ".join(safe_glosses), safe_glosses, audited)
