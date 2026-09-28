@@ -39,3 +39,6 @@ references/karsl_word_recognition/
 *.webm
 *.zip
 *.7z
+
+~$*.docx
+~$*.doc
