@@ -132,11 +132,10 @@ class SignBartKArSL502Recognizer:
             values = values[indexes]
         return values, hand_frames, observed
 
-    def predict_video(self, path: Path) -> KArSL502Prediction:
-        values, hand_frames, observed = self._extract(path)
+    def predict_keypoints(self, values: np.ndarray) -> KArSL502Prediction:
         if not len(values):
-            return KArSL502Prediction("", 0.0, False, hand_frames, observed)
-        keypoints = torch.from_numpy(values).unsqueeze(0).to(self.device)
+            return KArSL502Prediction("", 0.0, False, 0, 0)
+        keypoints = torch.from_numpy(np.asarray(values, dtype=np.float32)).unsqueeze(0).to(self.device)
         mask = torch.ones((1, keypoints.shape[1]), dtype=torch.float32, device=self.device)
         with torch.inference_mode():
             _, logits = self.model(keypoints, mask)
@@ -144,7 +143,22 @@ class SignBartKArSL502Recognizer:
             index = int(torch.argmax(probabilities).item())
             confidence = float(probabilities[index].item())
         return KArSL502Prediction(
-            self.labels[index], confidence, confidence >= self.threshold, hand_frames, observed
+            self.labels[index],
+            confidence,
+            confidence >= self.threshold,
+            len(values),
+            len(values),
+        )
+
+    def predict_video(self, path: Path) -> KArSL502Prediction:
+        values, hand_frames, observed = self._extract(path)
+        prediction = self.predict_keypoints(values)
+        return KArSL502Prediction(
+            prediction.gloss,
+            prediction.confidence,
+            prediction.accepted,
+            hand_frames,
+            observed,
         )
 
 

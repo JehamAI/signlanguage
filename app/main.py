@@ -20,7 +20,7 @@ from .pretrained_recognizer import pretrained_recognizer
 from .karsl_recognizer import karsl100_recognizer
 from .karsl502_recognizer import karsl502_recognizer
 from .embeddings import backend_name
-from .segmenter import split_isolated_signs
+from .continuous_sign import split_continuous_signs
 
 
 class TextRequest(BaseModel):
@@ -187,20 +187,26 @@ def sign_conversation(
 
         recognition_paths = list(paths)
         boundaries = []
+        segmentation_method = None
         if continuous_video:
             if len(paths) != 1:
                 raise HTTPException(status_code=400, detail="Continuous mode accepts exactly one sentence video")
             segment_dir = upload_root / f"segments-{uuid4().hex}"
             temporary_directories.append(segment_dir)
-            segments = split_isolated_signs(paths[0], segment_dir)
+            split = split_continuous_signs(
+                paths[0],
+                segment_dir,
+                recognizer if model_name == "karsl502_signbart" else None,
+            )
+            segments = split.segments
             recognition_paths = [segment.path for segment in segments]
             paths.extend(recognition_paths)
+            segmentation_method = split.method
             boundaries = [
-                {"start_seconds": item.start_seconds, "end_seconds": item.end_seconds}
-                for item in segments
+                {"start_seconds": item.start_seconds, "end_seconds": item.end_seconds} for item in segments
             ]
             if not recognition_paths:
-                raise HTTPException(status_code=422, detail="No paused sign segments were detected")
+                raise HTTPException(status_code=422, detail="No sign segments were detected in the continuous video")
 
         for position, path in enumerate(recognition_paths):
             prediction = recognizer.predict_video(path)
@@ -233,6 +239,7 @@ def sign_conversation(
                 "status": "completed",
                 "recognition": predictions,
                 "segmentation": boundaries,
+                **({"segmentation_method": segmentation_method} if continuous_video else {}),
                 "pipeline_stages": [
                     "sign_video_to_words",
                     "words_to_sentence",
