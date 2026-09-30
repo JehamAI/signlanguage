@@ -2,6 +2,8 @@
 
 This project implements the core flow described in `Utility_SL.pdf`: sign recognition, word-to-sentence reconstruction, grounded response generation, sentence simplification, local semantic matching to a sign dictionary, fallback handling, and sign-video construction.
 
+**Continuous sign input (planned):** Isharah CTC full sentence → LLM conversation check → optional CTC split + SignBart-502 per clip → LLM merge. See [docs/CONTINUOUS_SIGN_INPUT_STRATEGY.md](docs/CONTINUOUS_SIGN_INPUT_STRATEGY.md).
+
 ## What works
 
 - Uses the already-installed `C:\Users\Jeham\gpu-env` environment and its cached `sentence-transformers/all-MiniLM-L6-v2` model (384 dimensions).
@@ -23,6 +25,8 @@ This project implements the core flow described in `Utility_SL.pdf`: sign recogn
 ```
 
 Open `http://127.0.0.1:8000`.
+
+**Remote demo (SDAIA / viewers):** expose localhost with a [Cloudflare Quick Tunnel](docs/DEMO_PUBLIC_ACCESS.md) — run `scripts/run_cloudflare_tunnel.ps1` while uvicorn is up.
 
 The main sign-video route now uses the included temporal KArSL-100 BiLSTM checkpoint. It
 recognizes 100 Arabic word/phrase classes (SignIDs 0071-0170), reconstructs the question,
